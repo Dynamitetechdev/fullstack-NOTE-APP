@@ -1,15 +1,22 @@
+// Bring In Dependencies
 const express = require("express");
-const colors = require("colors");
-const dotenv = require("dotenv").config();
-const connectDB = require("./config/db");
-const port = process.env.PORT;
 const { errorHandler } = require("./middleware/errorMiddleWare");
-const app = express();
+const connectDB = require("./config/db");
+const dotenv = require("dotenv").config();
+
+const PORT = process.env.PORT || 8000;
+
 connectDB();
+const app = express();
+
+//Adding MiddleWare
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/notes", require("./router/noteRoutes"));
+// Specifing the routes, and where it should be routed to
+app.use("/api/goals", require("./routes/goalRoutes"));
 
+// Overriding The Default error handler
 app.use(errorHandler);
-app.listen(port, () => console.log(`${port}`));
+
+app.listen(PORT, () => console.log("server has started on port", PORT));
