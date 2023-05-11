@@ -5,6 +5,7 @@ const {
   updateGoal,
   deleteGoal,
 } = require("../controller/goalController");
+const { protectRoute } = require("../middleware/authMiddleWare");
 const dotenv = require("dotenv").config();
 const router = express.Router();
 
@@ -13,7 +14,10 @@ const router = express.Router();
 // Requests
 // 1. GET 2. POST 3. PUT/PATCH:id (update) 4. DELETE:id
 
-router.route("/").get(getGoals).post(setGoals);
-router.route("/:id").put(updateGoal).delete(deleteGoal);
+router.route("/").get(protectRoute, getGoals).post(protectRoute, setGoals);
+router
+  .route("/:id")
+  .put(protectRoute, updateGoal)
+  .delete(protectRoute, deleteGoal);
 
 module.exports = router;

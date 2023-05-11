@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 8000;
 connectDB();
 const app = express();
 
+// let splitText = "Bearer Token Ends Here";
+// console.log(splitText.split(" ")[0]);
 //Adding MiddleWare
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

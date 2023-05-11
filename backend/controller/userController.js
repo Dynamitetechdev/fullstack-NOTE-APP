@@ -73,7 +73,12 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 // @route    GET | 'api/users/me'
 // @access   PRIVATE
 const getMe = expressAsyncHandler(async (req, res) => {
-  res.status(200).json({ message: "User Details" });
+  const { _id, name, email } = await User.findById(req.user.id);
+  res.status(200).json({
+    _id,
+    name,
+    email,
+  });
 });
 
 //Generate Json Web Token using JWT

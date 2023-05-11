@@ -5,9 +5,13 @@ const Goal = require("../models/goalModel");
 // @route    GET | 'api/goals'
 // @access   PRIVATE
 const getGoals = expressAsyncHandler(async (req, res) => {
-  const goals = await Goal.find();
+  const goals = await Goal.find({
+    user: req.user.id,
+  });
   res.status(200).json(goals);
 });
+
+//Continue from trying to delete another users goal
 
 // @desc     Set Goals
 // @route    POST | 'api/goals'
@@ -19,6 +23,7 @@ const setGoals = expressAsyncHandler(async (req, res) => {
   }
   const goals = await Goal.create({
     text: req.body.text,
+    user: req.user.id,
   });
   console.log(req.body);
   res.status(200).json(goals);
