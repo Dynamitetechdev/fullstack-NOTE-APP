@@ -4,7 +4,6 @@ const Goal = require("../models/goalModel");
 // @desc     Get Goals
 // @route    GET | 'api/goals'
 // @access   PRIVATE
-
 const getGoals = expressAsyncHandler(async (req, res) => {
   const goals = await Goal.find();
   res.status(200).json(goals);
